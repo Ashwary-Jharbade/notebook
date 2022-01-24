@@ -52,6 +52,23 @@ const pushAttributeInRecord = async (model, query, payload) => {
   }
 };
 
+const removeSubDocsFromRecord = async (model, query, payload) => {
+  try {
+    const data = await model.findOneAndUpdate(query, { $pull: payload });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateSubDocsInRecord = async (model, query, payload) => {
+  try {
+    const data = await model.findOneAndUpdate(query, {});
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deleteRecord = async (model, query) => {
   try {
     const data = await model.deleteOne(query);
@@ -68,4 +85,5 @@ module.exports = {
   pushAttributeInRecord,
   findAllRecord,
   findRecord,
+  removeSubDocsFromRecord,
 };

@@ -5,6 +5,8 @@ const {
   deleteNoteBook,
   getNoteBook,
   getAllNoteBook,
+  addNoteInNoteBook,
+  removeNoteFromNoteBook,
 } = require("./controller");
 
 const router = Express.Router();
@@ -13,5 +15,7 @@ router.put("/updateNoteBook/:id", updateNoteBook);
 router.delete("/removeNoteBook/:id", deleteNoteBook);
 router.get("/findNoteBook/:id", getNoteBook);
 router.get("/findNoteBooks", getAllNoteBook);
+router.put("/addNote/:id", addNoteInNoteBook);
+router.put("/removeNote/:id", removeNoteFromNoteBook);
 
 module.exports = router;

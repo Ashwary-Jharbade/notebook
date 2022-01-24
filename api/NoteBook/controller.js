@@ -1,5 +1,5 @@
 const NoteBook = require("./schema");
-const { find, findAll, save, update } =
+const { find, findAll, save, update, push, pull } =
   require("../../utils/db/index").handlers;
 const resuables = require("../../utils/resuables");
 const { apiResponse, httpConstants } = resuables;
@@ -7,6 +7,7 @@ const {
   validateCreateNoteBook,
   validateUpdateNoteBook,
   validateNoteBookId,
+  validateNoteId,
 } = require("./validation");
 
 const createNoteBook = async (req, res) => {
@@ -55,6 +56,44 @@ const getAllNoteBook = async (req, res) => {
   }
 };
 
+const addNoteInNoteBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const query = { _id: id };
+    validateNoteBookId(query);
+    validateNoteId(body);
+    const payload = { notes: body };
+    const data = await push(NoteBook, query, payload);
+    const code = httpConstants.success;
+    return res
+      .status(code)
+      .json(apiResponse(code, "Note added successfully", data));
+  } catch (error) {
+    const code = httpConstants.not_found;
+    return res.status(code).json(apiResponse(code, "Unable to add note"));
+  }
+};
+
+const removeNoteFromNoteBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const query = { _id: id };
+    validateNoteBookId(query);
+    validateNoteId(body);
+    const payload = { notes: body };
+    const data = await pull(NoteBook, query, payload);
+    const code = httpConstants.success;
+    return res
+      .status(code)
+      .json(apiResponse(code, "Note removed successfully", data));
+  } catch (error) {
+    const code = httpConstants.not_found;
+    return res.status(code).json(apiResponse(code, "Unable to remove note"));
+  }
+};
+
 const updateNoteBook = async (req, res) => {
   try {
     const { id } = req.params;
@@ -100,4 +139,6 @@ module.exports = {
   getAllNoteBook,
   getNoteBook,
   updateNoteBook,
+  addNoteInNoteBook,
+  removeNoteFromNoteBook,
 };

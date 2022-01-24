@@ -48,6 +48,14 @@ const remove = (model, query) => {
   }
 };
 
+const pull = (model, query, payload) => {
+  try {
+    return dbHandlers.removeSubDocsFromRecord(model, query, payload);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   save,
   remove,
@@ -55,4 +63,5 @@ module.exports = {
   find,
   findAll,
   push,
+  pull,
 };

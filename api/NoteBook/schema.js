@@ -47,6 +47,7 @@ const schema = new Mongoose.Schema(
         noteId: {
           type: String,
           required: true,
+          unique: true,
         },
       },
     ],
