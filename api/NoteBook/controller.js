@@ -8,6 +8,7 @@ const {
   validateUpdateNoteBook,
   validateNoteBookId,
   validateNoteId,
+  validateNoteBookAccess,
 } = require("./validation");
 
 const createNoteBook = async (req, res) => {
@@ -136,6 +137,7 @@ const deleteNoteBook = async (req, res) => {
 const updateNoteBookAccess = async (req, res) => {
   try {
     const body = req.body;
+    validateNoteBookAccess(body);
     const { userId, userAccess } = body;
     const query = { "contributors.userId": userId };
     const payload = { "contributors.$.userAccess": userAccess };

@@ -86,9 +86,22 @@ const validateNoteId = (payload) => {
   }
 };
 
+const validateNoteBookAccess = (payload) => {
+  try {
+    const schema = Joi.object({
+      userId: Joi.string().required(),
+      userAccess: Joi.string().required(),
+    }).validate(payload);
+    requestError(schema);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   validateUpdateNoteBook,
   validateNoteBookId,
   validateCreateNoteBook,
   validateNoteId,
+  validateNoteBookAccess,
 };
