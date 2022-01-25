@@ -7,6 +7,7 @@ const {
   getAllNoteBook,
   addNoteInNoteBook,
   removeNoteFromNoteBook,
+  updateNoteBookAccess,
 } = require("./controller");
 
 const router = Express.Router();
@@ -17,5 +18,6 @@ router.get("/findNoteBook/:id", getNoteBook);
 router.get("/findNoteBooks", getAllNoteBook);
 router.put("/addNote/:id", addNoteInNoteBook);
 router.put("/removeNote/:id", removeNoteFromNoteBook);
+router.put("/notebookAccess", updateNoteBookAccess);
 
 module.exports = router;

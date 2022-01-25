@@ -1,3 +1,4 @@
+const { query } = require("express");
 const dbHandlers = require("./dbHandler");
 
 const save = (model, data) => {
@@ -56,6 +57,14 @@ const pull = (model, query, payload) => {
   }
 };
 
+const set = (model, query, payload) => {
+  try {
+    return dbHandlers.updateSubDocsInRecord(model, query, payload);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   save,
   remove,
@@ -64,4 +73,5 @@ module.exports = {
   findAll,
   push,
   pull,
+  set,
 };

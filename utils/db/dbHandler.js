@@ -63,7 +63,8 @@ const removeSubDocsFromRecord = async (model, query, payload) => {
 
 const updateSubDocsInRecord = async (model, query, payload) => {
   try {
-    const data = await model.findOneAndUpdate(query, {});
+    const data = await model.findOneAndUpdate(query, payload);
+    return data;
   } catch (error) {
     throw error;
   }
@@ -86,4 +87,5 @@ module.exports = {
   findAllRecord,
   findRecord,
   removeSubDocsFromRecord,
+  updateSubDocsInRecord,
 };

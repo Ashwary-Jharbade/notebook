@@ -25,13 +25,14 @@ const schema = new Mongoose.Schema(
           type: String,
           required: false,
           enum: ["web", "mobile", "tablet"],
+          unique: true,
         },
       },
     ],
     isPrivate: { type: Boolean, required: false, default: true },
     contributors: [
       {
-        userId: { type: String, required: true },
+        userId: { type: String, required: true, unique: true },
         userAccess: {
           type: String,
           required: true,

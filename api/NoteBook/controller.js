@@ -1,5 +1,5 @@
 const NoteBook = require("./schema");
-const { find, findAll, save, update, push, pull } =
+const { find, findAll, save, update, push, pull, set } =
   require("../../utils/db/index").handlers;
 const resuables = require("../../utils/resuables");
 const { apiResponse, httpConstants } = resuables;
@@ -133,6 +133,21 @@ const deleteNoteBook = async (req, res) => {
   }
 };
 
+const updateNoteBookAccess = async (req, res) => {
+  try {
+    const body = req.body;
+    const { userId, userAccess } = body;
+    const query = { "contributors.userId": userId };
+    const payload = { "contributors.$.userAccess": userAccess };
+    const data = await set(NoteBook, query, payload);
+    const code = httpConstants.success;
+    return res.status(code).json(apiResponse(code, "Access granted"));
+  } catch (error) {
+    const code = httpConstants.not_found;
+    return res.status(code).json(apiResponse(code, "Unable to grant access"));
+  }
+};
+
 module.exports = {
   createNoteBook,
   deleteNoteBook,
@@ -141,4 +156,5 @@ module.exports = {
   updateNoteBook,
   addNoteInNoteBook,
   removeNoteFromNoteBook,
+  updateNoteBookAccess,
 };
