@@ -19,7 +19,7 @@ const schema = new Mongoose.Schema(
       type: String,
       required: false,
     },
-    thumnails: [
+    thumbnails: [
       {
         path: { type: String, required: true },
         createdAt: { type: Date, required: true },
