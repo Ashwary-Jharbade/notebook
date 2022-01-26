@@ -21,6 +21,7 @@ const createNoteBook = async (req, res) => {
       .status(code)
       .json(apiResponse(code, "NoteBook created successfully", data));
   } catch (error) {
+    console.log(error);
     const code = httpConstants.not_found;
     return res.status(code).json(apiResponse(code, "NoteBook creation failed"));
   }
@@ -136,10 +137,13 @@ const deleteNoteBook = async (req, res) => {
 
 const updateNoteBookAccess = async (req, res) => {
   try {
+    const { id } = req.params;
     const body = req.body;
+    const noteBookId = { _id: id };
+    validateNoteBookId(noteBookId);
     validateNoteBookAccess(body);
     const { userId, userAccess } = body;
-    const query = { "contributors.userId": userId };
+    const query = { "contributors.userId": userId, ...noteBookId };
     const payload = { "contributors.$.userAccess": userAccess };
     const data = await set(NoteBook, query, payload);
     const code = httpConstants.success;

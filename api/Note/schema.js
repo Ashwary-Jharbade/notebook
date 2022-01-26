@@ -4,11 +4,7 @@ const schema = new Mongoose.Schema(
   {
     title: { type: String, required: true },
     userId: { type: String, required: true },
-    tags: [
-      {
-        name: { type: String, required: true },
-      },
-    ],
+    tags: [String],
     location: {
       type: { type: String },
       coordinates: [Number],
@@ -25,7 +21,6 @@ const schema = new Mongoose.Schema(
           type: String,
           required: false,
           enum: ["web", "mobile", "tablet"],
-          unique: true,
         },
       },
     ],

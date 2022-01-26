@@ -28,7 +28,6 @@ const schema = new Mongoose.Schema(
           type: String,
           required: true,
           enum: ["web", "mobile", "tablet"],
-          unique: true,
         },
       },
     ],
@@ -52,11 +51,7 @@ const schema = new Mongoose.Schema(
         },
       },
     ],
-    tags: [
-      {
-        name: { type: String, required: true },
-      },
-    ],
+    tags: [String],
     isActive: {
       type: Boolean,
       required: false,

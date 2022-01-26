@@ -6,13 +6,7 @@ const validateCreateNote = (payload) => {
     const schema = Joi.object({
       title: Joi.string().max(50).required(),
       userId: Joi.string().required(),
-      tags: Joi.array()
-        .items(
-          Joi.object({
-            name: Joi.string().required(),
-          })
-        )
-        .optional(),
+      tags: Joi.array().items(Joi.string()).optional(),
       location: Joi.object({
         coordinates: Joi.array().items(Joi.number(), Joi.number()),
       }).optional(),
@@ -53,6 +47,7 @@ const validateUpdateNote = (payload) => {
       content: Joi.string().optional(),
       category: Joi.string().optional(),
       isPrivate: Joi.boolean().optional(),
+      tags: Joi.array.items(Joi.string()),
     }).validate(payload);
     requestError(schema);
   } catch (error) {

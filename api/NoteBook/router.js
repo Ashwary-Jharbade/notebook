@@ -18,6 +18,6 @@ router.get("/findNoteBook/:id", getNoteBook);
 router.get("/findNoteBooks", getAllNoteBook);
 router.put("/addNote/:id", addNoteInNoteBook);
 router.put("/removeNote/:id", removeNoteFromNoteBook);
-router.put("/notebookAccess", updateNoteBookAccess);
+router.put("/notebookAccess/:id", updateNoteBookAccess);
 
 module.exports = router;

@@ -17,7 +17,7 @@ const validateCreateNoteBook = (payload) => {
             createdAt: Joi.date().required(),
             updatedAt: Joi.date().required(),
             deviceType: Joi.string().required(),
-          })
+          }).optional()
         )
         .optional(),
       isPrivate: Joi.boolean().optional(),
@@ -36,13 +36,7 @@ const validateCreateNoteBook = (payload) => {
           })
         )
         .optional(),
-      tags: Joi.array()
-        .items(
-          Joi.object({
-            name: Joi.string().required(),
-          })
-        )
-        .optional(),
+      tags: Joi.array().items(Joi.string()).optional(),
       isActive: Joi.boolean().optional(),
     }).validate(payload);
     requestError(schema);
@@ -57,6 +51,7 @@ const validateUpdateNoteBook = (payload) => {
       title: Joi.string().max(50).optional(),
       category: Joi.string().optional(),
       isPrivate: Joi.boolean().optional(),
+      tags: Joi.array.items(Joi.string()).optional(),
     }).validate(payload);
     requestError(schema);
   } catch (error) {
